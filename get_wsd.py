@@ -6,14 +6,15 @@ from dotted_wsd import DottedWsdTagger
 
 tagger = DottedWsdTagger()
 
+import torch
 import ckip_transformers
 from ckip_transformers.nlp import CkipWordSegmenter, CkipPosTagger
 import re
 import pandas as pd
 
-
-ws_driver = CkipWordSegmenter(device=0)
-pos_driver = CkipPosTagger(device=0)
+device = 0 if torch.cuda.is_available() else -1
+ws_driver = CkipWordSegmenter(device=device)
+pos_driver = CkipPosTagger(device=device)
 
 def get_dotted_wsd(text):
 
